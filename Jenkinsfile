@@ -19,8 +19,8 @@ pipeline {
                 curl localhost:5000
                 exit_status=$?
                 if [[ $exit_status == 0 ]]
-                then echo "SUCCESSFUL TESTS" 
-                else echo "FAILED TESTS" && exit 1
+                then echo "SUCCESSFUL TESTS" && docker stop $(docker ps -a | grep python | awk '{print $1}') 
+                else echo "FAILED TESTS" && docker stop $(docker ps -a | grep python | awk '{print $1}') && exit 1
                 fi
                '''
             }
