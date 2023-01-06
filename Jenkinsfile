@@ -34,9 +34,14 @@ pipeline {
             }
         }
         stage("Deploy") {
+           when {
+            expression {
+                  env.BRANCH_NAME == "main"
+                }
+          }
             steps {
                 sh '''
-                    helm upgrade flask helm/ --atomic --wait --install --set deployment.tag=$GIT_COMMIT
+                    helm upgrade flask helm/ --atomic --wait --install --set deployment.tag=$GIT_COMMIT --set deployment.env=main
                 '''
           }
         }
