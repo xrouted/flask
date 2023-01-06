@@ -33,18 +33,17 @@ pipeline {
                 '''
             }
         }
-        stage("Deploy") {
-           when {
+       stage("Deploy_Prod") {
+          when {
             expression {
                   env.BRANCH_NAME == "main"
                 }
           }
             steps {
                 sh '''
-                    helm upgrade flask helm/ --atomic --wait --install --set deployment.tag=$GIT_COMMIT --set deployment.env=main
+                    helm upgrade flask helm/ --atomic --wait --install --namespace prod --create-namespace --set deployment.tag=$GIT_COMMIT --set deployment.env=prod
                 '''
-          }
-        }
-
+           }
          }
        }
+    }
