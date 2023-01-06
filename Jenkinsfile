@@ -19,8 +19,8 @@ pipeline {
                 curl localhost:5000
                 exit_status=$?
                 if [[ $exit_status == 0 ]]
-                then echo "SUCCESSFUL TESTS" && docker stop "${image_name}:$GIT_COMMIT"
-                else echo "FAILED TESTS" && docker stop "${image_name}:$GIT_COMMIT" && exit 1
+                then echo "SUCCESSFUL TESTS" 
+                else echo "FAILED TESTS" && exit 1
                 fi
                '''
             }
