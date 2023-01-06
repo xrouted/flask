@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        image_name="058302395964.dkr.ecr.eu-central-1.amazonaws.com/pragma-app"
+        image_name="652991552826.dkr.ecr.eu-central-1.amazonaws.com/flask-final"
     }
     stages {
         stage('Build') {
@@ -28,7 +28,7 @@ pipeline {
         stage('Push') {
             steps {
                sh '''
-                  docker login -u AWS https://058302395964.dkr.ecr.eu-central-1.amazonaws.com -p $(aws ecr get-login-password --region eu-central-1)
+                  docker login -u AWS https://652991552826.dkr.ecr.eu-central-1.amazonaws.com -p $(aws ecr get-login-password --region eu-central-1)
                   docker push ${image_name}:$GIT_COMMIT
                 '''
             }
