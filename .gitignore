@@ -3,6 +3,3 @@
 
 # Ada Library Information
 *.ali
-
-*.terraform/*
-*.tfstate*
