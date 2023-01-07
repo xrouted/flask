@@ -1,6 +1,6 @@
 Project Description
 
-This DevOps project automates the deployment and management of a cloud-based infrastructure for a Flask application using Terraform, AWS EC2, AWS ECR, Bash, Python, Jenkins, Docker, a kind Kubernetes cluster, Helm, Git, and Flask.
+This DevOps project automates the deployment and management of a cloud-based infrastructure for a Flask application using Terraform, AWS EC2, AWS ECR, Bash, Python, Jenkins, Docker, kind Kubernetes cluster, Helm, Git, and Flask.
 Getting Started
 Prerequisites
 
