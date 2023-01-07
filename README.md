@@ -1,74 +1,45 @@
-Flask Infrastructure
+Project Description
 
-This project contains the infrastructure code for a Flask web application. It is set up using Terraform and Ansible and is designed to be deployed on AWS.
+This DevOps project automates the deployment and management of a cloud-based infrastructure for a Flask application using Terraform, AWS EC2, AWS ECR, Bash, Python, Jenkins, Docker, a kind Kubernetes cluster, Helm, Git, and Flask.
+Getting Started
 Prerequisites
 
-Before you can use this project, you will need the following:
+    Terraform   [https://www.terraform.io]
+    AWS Account [https://aws.amazon.com/]
+    AWS EC2     [https://aws.amazon.com/ec2/]
+    AWS ECR     [https://aws.amazon.com/ecr/]
+    Bash        [https://www.gnu.org/software/bash/]
+    Python      [https://www.python.org/]
+    Jenkins     [https://www.jenkins.io/]
+    Docker      [https://www.docker.com/]
+    kind Kubernetes cluster [https://kind.sigs.k8s.io/]
+    Helm        [https://helm.sh/]
+    Git         [https://git-scm.com/]
+    Flask       [https://flask.palletsprojects.com/]
 
-    Terraform
-    An AWS account
+Deployment
 
-Setting Up
+    Clone this repository
+    Modify the terraform.tfvars file with your desired infrastructure configuration
+    Run terraform init to initialize the Terraform module
+    Run terraform apply to apply the infrastructure changes
+    Use Helm to deploy the Flask application to the kind Kubernetes cluster
 
-    Clone the repository:
+Management
 
-git clone https://github.com/xrouted/flask.git
-cd flask/infrastructure
+    Use Bash scripts for common infrastructure management tasks
+    Use Python scripts for custom infrastructure management tasks and integrations
+    Use Jenkins for continuous integration and delivery (CI/CD) pipelines
+    Use Docker for containerizing the Flask application
+    Use AWS ECR for storing the Docker images for the Flask application
+    Use the kind Kubernetes cluster for deploying and managing the containerized Flask application
+    Use Helm for managing the deployment of the Flask application on the Kubernetes cluster
+    Use Git for version control and collaborating with team members
 
-    Copy the terraform.tfvars.example file to terraform.tfvars and fill in your AWS access keys and desired region:
+Authors
 
-cp terraform.tfvars.example terraform.tfvars
+    xRouted : Bozhidar Bashev https://www.linkedin.com/in/bozhidar-bashev-56a41067/ 
 
-    Initialize Terraform:
+License
 
-terraform init
-
-    Review the infrastructure plan:
-
-terraform plan
-
-    Apply the infrastructure:
-
-terraform apply
-
-    Run the Ansible playbook to set up the server:
-
-ansible-playbook -i inventory.ini playbook.yml
-
-Deploying the Application
-
-To deploy the Flask application, you will need to build and package it and then copy the package to the server. Here is an example of how you can do this using git and scp:
-
-    Check out the code for the application:
-
-git clone https://github.com/xrouted/flask.git
-cd flask/app
-
-    Build the application package:
-
-python3 -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
-python setup.py sdist
-
-    Copy the package to the server:
-
-scp dist/flask-app-0.1.tar.gz ubuntu@<server_ip>:/tmp
-
-    SSH into the server and install the package:
-
-ssh ubuntu@<server_ip>
-cd /tmp
-tar -xzvf flask-app-0.1.tar.gz
-cd flask-app-0.1
-sudo python3 setup.py install
-
-    Restart the application server to pick up the new code:
-
-sudo systemctl restart flask-app
-
-Cleaning Up
-
-To destroy the infrastructure and delete all resources created by Terraform, run:
-
-terraform destroy
+This project is licensed under the nLimit License.
