@@ -1,29 +1,74 @@
-# Flask
+Flask Infrastructure
 
-Flask is a micro web framework written in Python. It is classified as a microframework because it does not require particular tools or libraries. It has no database abstraction layer, form validation, or any other components where pre-existing third-party libraries provide common functions.
-Installation
+This project contains the infrastructure code for a Flask web application. It is set up using Terraform and Ansible and is designed to be deployed on AWS.
+Prerequisites
 
-To install Flask, use pip:
+Before you can use this project, you will need the following:
 
-pip install Flask
+    Terraform
+    An AWS account
 
-Usage
+Setting Up
 
-Here is a simple example of a Flask app:
+    Clone the repository:
 
-from flask import Flask
+git clone https://github.com/xrouted/flask.git
+cd flask/infrastructure
 
-app = Flask(__name__)
+    Copy the terraform.tfvars.example file to terraform.tfvars and fill in your AWS access keys and desired region:
 
-@app.route('/')
-def hello():
-    return 'Hello, World!'
+cp terraform.tfvars.example terraform.tfvars
 
-Save this code in a file named app.py and run it with the following command:
+    Initialize Terraform:
 
-flask run
+terraform init
 
-The app will be available at http://127.0.0.1:5000/.
+    Review the infrastructure plan:
 
-For more information, check out the Flask documentation.
-https://flask.palletsprojects.com/en/2.2.x/
+terraform plan
+
+    Apply the infrastructure:
+
+terraform apply
+
+    Run the Ansible playbook to set up the server:
+
+ansible-playbook -i inventory.ini playbook.yml
+
+Deploying the Application
+
+To deploy the Flask application, you will need to build and package it and then copy the package to the server. Here is an example of how you can do this using git and scp:
+
+    Check out the code for the application:
+
+git clone https://github.com/xrouted/flask.git
+cd flask/app
+
+    Build the application package:
+
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+python setup.py sdist
+
+    Copy the package to the server:
+
+scp dist/flask-app-0.1.tar.gz ubuntu@<server_ip>:/tmp
+
+    SSH into the server and install the package:
+
+ssh ubuntu@<server_ip>
+cd /tmp
+tar -xzvf flask-app-0.1.tar.gz
+cd flask-app-0.1
+sudo python3 setup.py install
+
+    Restart the application server to pick up the new code:
+
+sudo systemctl restart flask-app
+
+Cleaning Up
+
+To destroy the infrastructure and delete all resources created by Terraform, run:
+
+terraform destroy
